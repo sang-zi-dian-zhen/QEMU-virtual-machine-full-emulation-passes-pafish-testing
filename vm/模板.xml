@@ -1,1 +1,153 @@
-
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  <name>复制虚拟机XML</name>
+  <uuid>复制虚拟机XML</uuid>
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://microsoft.com/win/10"/>
+    </libosinfo:libosinfo>
+  </metadata>
+  <memory unit="KiB">12582912</memory>
+  <currentMemory unit="KiB">12582912</currentMemory>
+  <memoryBacking>
+    <nosharepages/>
+    <locked/>
+  </memoryBacking>
+  <vcpu placement="static">6</vcpu>
+  <sysinfo type="smbios">
+    <bios>
+      <entry name="vendor">American Megatrends Inc.</entry>
+      <entry name="version">0606</entry>
+      <entry name="date">03/14/2019</entry>
+      <entry name="release">5.12</entry>
+    </bios>
+    <system>
+      <entry name="manufacturer">System manufacturer</entry>
+      <entry name="product">System Product Name</entry>
+      <entry name="version">System Version</entry>
+      <entry name="serial">705662457301</entry>
+      <entry name="sku">SKU</entry>
+      <entry name="family">To be filled by O.E.M.</entry>
+    </system>
+    <baseBoard>
+      <entry name="manufacturer">ASUSTeK COMPUTER INC.</entry>
+      <entry name="product">PRIME H310M-F R2.0</entry>
+      <entry name="version">Rev X.0x</entry>
+      <entry name="serial">426383039372</entry>
+      <entry name="asset">Default string</entry>
+      <entry name="location">Default string</entry>
+    </baseBoard>
+    <chassis>
+      <entry name="manufacturer">Default string</entry>
+      <entry name="version">Default string</entry>
+      <entry name="serial">398585804520</entry>
+      <entry name="asset">Default string</entry>
+      <entry name="sku">Default string</entry>
+    </chassis>
+  </sysinfo>
+  <os firmware="efi">
+    <type arch="x86_64" machine="pc-q35-10.2">hvm</type>
+    <firmware>
+      <feature enabled="no" name="enrolled-keys"/>
+      <feature enabled="yes" name="secure-boot"/>
+    </firmware>
+    <loader readonly="yes" secure="yes" type="pflash" format="raw">/usr/share/qemu/edk2-x86_64-secure-code.fd</loader>
+    <nvram template="/usr/share/qemu/edk2-i386-vars.fd" templateFormat="raw" format="raw">/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
+    <boot dev="hd"/>
+    <smbios mode="sysinfo"/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <hyperv mode="custom">
+      <relaxed state="on"/>
+      <vapic state="on"/>
+      <spinlocks state="on" retries="8191"/>
+      <vendor_id state="on" value="GenuineIntel"/>
+    </hyperv>
+    <kvm>
+      <hidden state="on"/>
+    </kvm>
+    <vmport state="off"/>
+    <smm state="on"/>
+    <ioapic driver="qemu"/>
+  </features>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" clusters="1" cores="6" threads="1"/>
+    <feature policy="disable" name="hypervisor"/>
+    <feature policy="require" name="vmx"/>
+  </cpu>
+  <clock offset="localtime">
+    <timer name="rtc" tickpolicy="catchup" track="guest"/>
+    <timer name="pit" tickpolicy="delay"/>
+    <timer name="hpet" present="no"/>
+    <timer name="hypervclock" present="no"/>
+    <timer name="tsc" present="yes" mode="native"/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <pm>
+    <suspend-to-mem enabled="no"/>
+    <suspend-to-disk enabled="no"/>
+  </pm>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2"/>
+      <source file="/var/lib/libvirt/images/win10.qcow2"/>
+      <target dev="sdb" bus="sata"/>
+      <serial>283409954741</serial>
+      <product>BIOSTAR S100-120GB</product>
+      <address type="drive" controller="0" bus="0" target="0" unit="1"/>
+    </disk>
+    <controller type="pci" index="0" model="pcie-root"/>
+    <controller type="pci" index="1" model="pcie-root-port">
+      <model name="ioh3420"/>
+      <target chassis="1" port="0x8"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0" multifunction="on"/>
+    </controller>
+    <controller type="pci" index="2" model="pcie-root-port">
+      <model name="ioh3420"/>
+      <target chassis="2" port="0x9"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x1"/>
+    </controller>
+    <controller type="pci" index="3" model="pcie-root-port">
+      <model name="ioh3420"/>
+      <target chassis="3" port="0xa"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x2"/>
+    </controller>
+    <controller type="pci" index="4" model="pcie-root-port">
+      <model name="ioh3420"/>
+      <target chassis="4" port="0xb"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x3"/>
+    </controller>
+    <controller type="usb" index="0" model="nec-xhci" ports="15">
+      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
+    </controller>
+    <controller type="sata" index="0">
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
+    </controller>
+    <input type="mouse" bus="ps2"/>
+    <input type="keyboard" bus="ps2"/>
+    <audio id="1" type="none"/>
+    <watchdog model="itco" action="reset"/>
+    <memballoon model="none"/>
+    <iommu model="intel">
+      <driver intremap="on" caching_mode="on" aw_bits="39"/>
+    </iommu>
+  </devices>
+  <qemu:commandline>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=0,uefi=on,vm=off"/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=1,uuid=67b31ba3-c143-4ecc-9cd0-6ec9b45509ec"/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=4,sock_pfx=LGA1151,manufacturer=Intel(R) Corporation,version=Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz,max-speed=8300,current-speed=2800,serial=736295446298,asset=To Be Filled By O.E.M.,part=To Be Filled By O.E.M.,processor-family=6,processor-id=805336969424"/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=17,loc_pfx=ChannelB-DIMM1,bank=BANK 2,manufacturer=8892,serial=753802549650,asset=9876543210,part=,speed=2400"/>
+    <qemu:arg value="-cpu"/>
+    <qemu:arg value="host,family=6,model=158,stepping=10,model_id=Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz,+l3-cache,rdtscp=off,hv_time,kvm=off,hv_vendor_id=null,-hypervisor,+vmx,+invtsc,vmware-cpuid-freq=false,enforce=false,host-phys-bits=true"/>
+    <qemu:arg value="-machine"/>
+    <qemu:arg value="q35,kernel_irqchip=split"/>
+  </qemu:commandline>
+</domain>
