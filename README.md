@@ -112,7 +112,7 @@ sudo bash install_hooks.sh
 安装好显卡驱动应该显示Windows桌面， 关闭VM应该回到debian登录界面
 ```
 
-![这是图片](补丁/截图/unknown_2026.05.22.png "win10 VM")
+![这是图片](/补丁/截图/unknown_2026.05.22.png "win10 VM")
 
 - 为了爱
   > 桑梓店镇		UID : 1081527516  已测试2026-05-21  
