@@ -1,5 +1,5 @@
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
-  <name>复制虚拟机XML</name>
+  <name>win10<!-- 默认名字 --></name>
   <uuid>复制虚拟机XML</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
