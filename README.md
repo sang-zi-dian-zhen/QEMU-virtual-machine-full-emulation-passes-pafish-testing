@@ -19,7 +19,7 @@
  >> ##### 模板.xml	仿真模板
  >> ##### 配置BIOS.sh	配置仿真模板
 
-### 视频教程	:	待定
+### 视频教程	:	已发布视频[QEMU虚拟机全仿真,全过pafish测试，单显卡直通过检测](https://www.bilibili.com/video/BV1YvVe6WECL)
 ### 文字教程	:	
 
 
