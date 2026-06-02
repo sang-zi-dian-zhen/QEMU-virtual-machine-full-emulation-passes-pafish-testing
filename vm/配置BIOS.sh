@@ -11,6 +11,7 @@ rand_serial=1
 # 定义颜色变量
 GREEN='\e[1;32m' # 绿
 PINK='\e[1;35m' # 粉红
+YELLOW='\e[1;33m' # 黄
 RES='\e[0m' # 清除颜色
 
 if [ $rand_serial == 1 ]; then echo_rand_serial="$GREEN是$RES" ;else echo_rand_serial="$PINK否$RES" ;fi
@@ -18,94 +19,100 @@ echo -e "\n	自定义配置虚拟机 or 选择复制主机\n	随机序列号:$ec
 if [[ $EUID -ne 0 ]]; then echo -e "	用户权限不够,root用户执行\n" 1>&2;exit 1;fi
 sleep 1
 
+
+
 #BIOS信息
-bios_T0=$(dmidecode -t 0)
-T0_vendor=$(echo $bios_T0 | sed -e 's/.*Vendor: //g' -e 's/ Version:.*//g')
-T0_version=$(echo $bios_T0 | sed -e 's/.*Version: //g' -e 's/ Release Date:.*//g')
-T0_date=$(echo $bios_T0 | sed -e 's/.*Release Date: //g' -e 's/ Address:.*//g')
-T0_release=$(echo $bios_T0 | sed -e 's/.*BIOS Revision: //g')
+dmidecode -t 0 > ~/bios_T0
+T0_vendor=$(grep 'Vendor:' ~/bios_T0 | sed -e 's/.*Vendor: //g')
+T0_version=$(grep 'Version:' ~/bios_T0 | sed -e 's/.*Version: //g')
+T0_date=$(grep 'Release Date:' ~/bios_T0 | sed -e 's/.*Release Date: //g')
+T0_release=$(grep 'BIOS Revision:' ~/bios_T0 |  sed -e 's/.*BIOS Revision: //g')
 
 
 
 #系统信息
-bios_T1=$(dmidecode -t 1)
-T1_manufacturer=$(echo $bios_T1 | sed -e 's/.*Manufacturer: //g' -e 's/ Product Name:.*//g')
-T1_product=$(echo $bios_T1 | sed -e 's/.*Product Name: //g' -e 's/ Version:.*//g')
-T1_version=$(echo $bios_T1 | sed -e 's/.*Version: //g' -e 's/ Serial Number:.*//g')
-T1_serial=$(echo $bios_T1 | sed -e 's/.*Serial Number: //g' -e 's/ UUID:.*//g')
-T1_uuid=$(echo $bios_T1 | sed -e 's/.*UUID: //g' -e 's/ Wake-up Type:.*//g')
-T1_sku=$(echo $bios_T1 | sed -e 's/.*SKU Number: //g' -e 's/ Family:.*//g')
-T1_family=$(echo $bios_T1 | sed -e 's/.*Family: //g')
+dmidecode -t 1 > ~/bios_T1
+T1_manufacturer=$(grep 'Manufacturer:' ~/bios_T1 | sed -e 's/.*Manufacturer: //g')
+T1_product=$(grep 'Product Name:' ~/bios_T1 | sed -e 's/.*Product Name: //g')
+T1_version=$(grep 'Version:' ~/bios_T1 | sed -e 's/.*Version: //g')
+T1_serial=$(grep 'Serial Number:' ~/bios_T1 | sed -e 's/.*Serial Number: //g')
+T1_uuid=$(grep 'UUID:' ~/bios_T1 | sed -e 's/.*UUID: //g')
+T1_sku=$(grep 'SKU Number:' ~/bios_T1 | sed -e 's/.*SKU Number: //g')
+T1_family=$(grep 'Family:' ~/bios_T1 | sed -e 's/.*Family: //g')
 
 
 
 #主板信息
-bios_T2=$(dmidecode -t 2)
-T2_manufacturer=$(echo $bios_T2 | sed -e 's/.*Manufacturer: //g' -e 's/ Product Name:.*//g')
-T2_product=$(echo $bios_T2 | sed -e 's/.*Product Name: //g' -e 's/ Version:.*//g')
-T2_version=$(echo $bios_T2 | sed -e 's/.*Version: //g' -e 's/ Serial Number:.*//g')
-T2_serial=$(echo $bios_T2 | sed -e 's/.*Serial Number: //g' -e 's/ Asset Tag:.*//g')
-T2_asset=$(echo $bios_T2 | sed -e 's/.*Asset Tag: //g' -e 's/ Features:.*//g')
-T2_location=$(echo $bios_T2 | sed -e 's/.*Location In Chassis: //g' -e 's/ Chassis Handle:.*//g')
+dmidecode -t 2 > ~/bios_T2
+T2_manufacturer=$(grep 'Manufacturer:' ~/bios_T2 | sed -e 's/.*Manufacturer: //g')
+T2_product=$(grep 'Product Name:' ~/bios_T2 | sed -e 's/.*Product Name: //g')
+T2_version=$(grep 'Version:' ~/bios_T2 | sed -e 's/.*Version: //g')
+T2_serial=$(grep 'Serial Number:' ~/bios_T2 | sed -e 's/.*Serial Number: //g')
+T2_asset=$(grep 'Asset Tag:' ~/bios_T2 | sed -e 's/.*Asset Tag: //g')
+T2_location=$(grep 'Location In Chassis:' ~/bios_T2 | sed -e 's/.*Location In Chassis: //g')
 
 
 
 #机箱信息
-bios_T3=$(dmidecode -t 3)
-T3_manufacturer=$(echo $bios_T3 | sed -e 's/.*Manufacturer: //g' -e 's/ Type:.*//g')
-T3_version=$(echo $bios_T3 | sed -e 's/.*Version: //g' -e 's/ Serial Number:.*//g')
-T3_serial=$(echo $bios_T3 | sed -e 's/.*Serial Number: //g' -e 's/ Asset Tag:.*//g')
-T3_asset=$(echo $bios_T3 | sed -e 's/.*Asset Tag: //g' -e 's/ Boot-up State:.*//g')
-T3_sku=$(echo $bios_T3 | sed -e 's/.*SKU Number: //g')
+dmidecode -t 3 > ~/bios_T3
+T3_manufacturer=$(grep 'Manufacturer:' ~/bios_T3 | sed -e 's/.*Manufacturer: //g')
+T3_version=$(grep 'Version:' ~/bios_T3 | sed -e 's/.*Version: //g')
+T3_serial=$(grep 'Serial Number:' ~/bios_T3 | sed -e 's/.*Serial Number: //g')
+T3_asset=$(grep 'Asset Tag:' ~/bios_T3 | sed -e 's/.*Asset Tag: //g')
+T3_sku=$(grep 'SKU Number:' ~/bios_T3 | sed -e 's/.*SKU Number: //g')
 
 
 
 #处理器信息
-bios_T4=$(dmidecode -t 4)
-T4_sock_pfx=$(echo $bios_T4 | sed -e 's/.*Socket Designation: //g' -e 's/ Type:.*//g')
-T4_manufacturer=$(echo $bios_T4 | sed -e 's/.*Manufacturer: //g' -e 's/ ID:.*//g')
-T4_version=$(echo $bios_T4 | sed -e 's/.*Version: //g' -e 's/ Voltage:.*//g')
-T4_maxspeed=$(echo $bios_T4 | sed -e 's/.*Max Speed: //g' -e 's/ MHz.*//g')
-T4_currentspeed=$(echo $bios_T4 | sed -e 's/.*Current Speed: //g' -e 's/ MHz.*//g')
-T4_serial=$(echo $bios_T4 | sed -e 's/.*Serial Number: //g' -e 's/ Asset Tag:.*//g')
-T4_asset=$(echo $bios_T4 | sed -e 's/.*Asset Tag: //g' -e 's/ Part Number:.*//g')
-T4_part=$(echo $bios_T4 | sed -e 's/.*Part Number: //g' -e 's/ Core Count:.*//g')
-T4_processorfamily=$(echo $bios_T4 | sed -e 's/.*Signature: //g' -e 's/, Model.*//g' -e 's/.*Family //g')
-T4_16id=$(echo $bios_T4 | sed -e 's/.*ID: //g' -e 's/ Signature:.*//g' -e 's/ //g')
+dmidecode -t 4 > ~/bios_T4
+T4_sock_pfx=$(grep 'Socket Designation:' ~/bios_T4 | sed -e 's/.*Socket Designation: //g')
+T4_manufacturer=$(grep 'Manufacturer:' ~/bios_T4 | sed -e 's/.*Manufacturer: //g')
+T4_version=$(grep 'Version:' ~/bios_T4 | sed -e 's/.*Version: //g')
+T4_maxspeed=$(grep 'Max Speed:' ~/bios_T4 | sed -e 's/.*Max Speed: //g' -e 's/ MHz//g')
+T4_currentspeed=$(grep 'Current Speed:' ~/bios_T4 | sed -e 's/.*Current Speed: //g' -e 's/ MHz//g')
+T4_serial=$(grep 'Serial Number:' ~/bios_T4 | sed -e 's/.*Serial Number: //g')
+T4_asset=$(grep 'Asset Tag:' ~/bios_T4 | sed -e 's/.*Asset Tag: //g')
+T4_part=$(grep 'Part Number:' ~/bios_T4 | sed -e 's/.*Part Number: //g')
+T4_processorfamily=$(grep 'Signature:' ~/bios_T4 | sed -e 's/.*Signature: //g' -e 's/, Model.*//g' -e 's/.*Family //g')
+T4_16id=$(grep 'ID:' ~/bios_T4 | sed -e 's/.*ID: //g' -e 's/ //g')
 T4_processorid=$(echo "ibase=16; $T4_16id" | bc)
 
 
 
 #内存设备
-bios_T17=$(dmidecode -t 17 | tail -n 23)
-T17_loc_pfx=$(echo $bios_T17 | sed -e 's/.*Set://g' -e 's/Bank Locator:.*//g' -e 's/.*Locator://g' -e 's/ //g')
-T17_bank=$(echo $bios_T17 | sed -e 's/.*Bank Locator: //g' -e 's/ Type:.*//g')
-T17_manufacturer=$(echo $bios_T17 | sed -e 's/.*Manufacturer: //g' -e 's/ Serial Number:.*//g')
-T17_serial=$(echo $bios_T17 | sed -e 's/.*Serial Number: //g' -e 's/ Asset Tag:.*//g')
-T17_asset=$(echo $bios_T17 | sed -e 's/.*Asset Tag: //g' -e 's/ Part Number:.*//g')
-T17_part=$(echo $bios_T17 | sed -e 's/.*Part Number://g' -e 's/Rank:.*//g' -e 's/ //g')
-T17_speed=$(echo $bios_T17 | sed -e 's/.*Speed: //g' -e 's/ MT\/s.*//g')
+dmidecode -t 17 > ~/bios_T17
+tail -n 25 ~/bios_T17 > ~/tail_bios_T17
+T17_loc_pfx=$(grep '	Locator: ' ~/tail_bios_T17 | sed -e 's/.*Locator: //g')
+T17_bank=$(grep 'Bank Locator:' ~/tail_bios_T17 | sed -e 's/.*Bank Locator: //g')
+T17_manufacturer=$(grep 'Manufacturer:' ~/tail_bios_T17 | sed -e 's/.*Manufacturer: //g')
+T17_serial=$(grep 'Serial Number:' ~/tail_bios_T17 | sed -e 's/.*Serial Number: //g')
+T17_asset=$(grep 'Asset Tag:' ~/tail_bios_T17 | sed -e 's/.*Asset Tag: //g')
+T17_part=$(grep 'Part Number:' ~/tail_bios_T17 | sed -e 's/.*Part Number: //g' -e 's/ //g')
+T17_speed=$(grep '	Speed:' ~/tail_bios_T17 | sed -e 's/.*Speed: //g' -e 's/ MT\/s.*//g')
 
 
 
 #CPU
-lscpu=$(lscpu)
-cpu_family=$(echo $lscpu | sed -e 's/.*CPU family: //g' -e 's/ Model:.*//g')
-cpu_model=$(echo $lscpu | sed -e 's/.*Model: //g' -e 's/ Thread(s) per core:.*//g')
-cpu_stepping=$(echo $lscpu | sed -e 's/.*Stepping: //g' -e 's/ Microcode version.*//g')
-cpu_model_id=$(echo $lscpu | sed -e 's/.*Model name: //g' -e 's/ CPU family:.*//g')
+lscpu > ~/lscpu
+cpu_family=$(grep 'CPU family:' ~/lscpu | sed -e 's/.*CPU family://g' -e 's/ //g')
+cpu_model=$(grep 'Model:' ~/lscpu | sed -e 's/.*Model://g' -e 's/ //g')
+cpu_stepping=$(grep 'Stepping:' ~/lscpu | sed -e 's/.*Stepping://g' -e 's/ //g')
+cpu_model_id=$(grep 'Model name:' ~/lscpu | sed -e 's/.*Model name://g' -e 's/ //g')
 
 
 
 #磁盘
-hdparm=$(hdparm -I /dev/sda)
-disk_model=$(echo $hdparm | sed -e 's/.*Model Number: //g' -e 's/ Serial Number:.*//g')
-disk_serial=$(echo $hdparm | sed -e 's/.*Serial Number: //g' -e 's/ Firmware Revision:.*//g')
+hdparm -I /dev/sda > ~/hdparm
+disk_model=$(grep 'Model Number:' ~/hdparm | sed -e 's/.*Model Number://g' -e 's/ //g')
+disk_serial=$(grep 'Serial Number:' ~/hdparm | sed -e 's/.*Serial Number://g' -e 's/ //g')
 
 
 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
+rm ~/bios_T0 ~/bios_T1 ~/bios_T2 ~/bios_T3 ~/bios_T4 ~/bios_T17 ~/tail_bios_T17 ~/lscpu ~/hdparm
 
+
+#随机序列号
 if [ $rand_serial == 1 ]; then  
 T1_serial=$(shuf -i 100000000000-999999999999 -n 1)
 T1_uuid=$(cat /proc/sys/kernel/random/uuid)
@@ -119,69 +126,67 @@ fi
 
 
 
-
-
 #BIOS信息
-echo "<bios>"
-echo "<entry name=\"vendor\">$T0_vendor</entry>"
-echo "<entry name=\"version\">$T0_version</entry>"
-echo "<entry name=\"date\">$T0_date</entry>"
-echo "<entry name=\"release\">$T0_release</entry>"
-echo "</bios>"
+echo -e "<bios>"
+echo -e "<entry name=\"vendor\">$YELLOW$T0_vendor$RES</entry>"
+echo -e "<entry name=\"version\">$YELLOW$T0_version$RES</entry>"
+echo -e "<entry name=\"date\">$YELLOW$T0_date$RES</entry>"
+echo -e "<entry name=\"release\">$YELLOW$T0_release$RES</entry>"
+echo -e "</bios>"
 
 #系统信息
-echo "<system>"
-echo "<entry name=\"manufacturer\">$T1_manufacturer</entry>"
-echo "<entry name=\"product\">$T1_product</entry>"
-echo "<entry name=\"version\">$T1_version</entry>"
-echo "<entry name=\"serial\">$T1_serial</entry>"
-echo "<entry name=\"sku\">$T1_sku</entry>"
-echo "<entry name=\"family\">$T1_family</entry>"
-echo "</system>"
+echo -e "<system>"
+echo -e "<entry name=\"manufacturer\">$YELLOW$T1_manufacturer$RES</entry>"
+echo -e "<entry name=\"product\">$YELLOW$T1_product$RES</entry>"
+echo -e "<entry name=\"version\">$YELLOW$T1_version$RES</entry>"
+echo -e "<entry name=\"serial\">$YELLOW$T1_serial$RES</entry>"
+echo -e "<entry name=\"sku\">$YELLOW$T1_sku$RES</entry>"
+echo -e "<entry name=\"family\">$YELLOW$T1_family$RES</entry>"
+echo -e "</system>"
 
 #主板信息
-echo "<baseBoard>"
-echo "<entry name=\"manufacturer\">$T2_manufacturer</entry>"
-echo "<entry name=\"product\">$T2_product</entry>"
-echo "<entry name=\"version\">$T2_version</entry>"
-echo "<entry name=\"serial\">$T2_serial</entry>"
-echo "<entry name=\"asset\">$T2_asset</entry>"
-echo "<entry name=\"location\">$T2_location</entry>"
-echo "</baseBoard>"
+echo -e "<baseBoard>"
+echo -e "<entry name=\"manufacturer\">$YELLOW$T2_manufacturer$RES</entry>"
+echo -e "<entry name=\"product\">$YELLOW$T2_product$RES</entry>"
+echo -e "<entry name=\"version\">$YELLOW$T2_version$RES</entry>"
+echo -e "<entry name=\"serial\">$YELLOW$T2_serial$RES</entry>"
+echo -e "<entry name=\"asset\">$YELLOW$T2_asset$RES</entry>"
+echo -e "<entry name=\"location\">$YELLOW$T2_location$RES</entry>"
+echo -e "</baseBoard>"
 
 #机箱信息
-echo "<chassis>"
-echo "<entry name=\"manufacturer\">$T3_manufacturer</entry>"
-echo "<entry name=\"version\">$T3_version</entry>"
-echo "<entry name=\"serial\">$T3_serial</entry>"
-echo "<entry name=\"asset\">$T3_asset</entry>"
-echo "<entry name=\"sku\">$T3_sku</entry>"
-echo "</chassis>"
+echo -e "<chassis>"
+echo -e "<entry name=\"manufacturer\">$YELLOW$T3_manufacturer$RES</entry>"
+echo -e "<entry name=\"version\">$YELLOW$T3_version$RES</entry>"
+echo -e "<entry name=\"serial\">$YELLOW$T3_serial$RES</entry>"
+echo -e "<entry name=\"asset\">$YELLOW$T3_asset$RES</entry>"
+echo -e "<entry name=\"sku\">$YELLOW$T3_sku$RES</entry>"
+echo -e "</chassis>"
 
 
 
 #系统信息
 echo -e "\n\n<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=1,uuid=$T1_uuid\"/>"
+echo -e "<qemu:arg value=\"type=1,uuid=$YELLOW$T1_uuid$RES\"/>"
 
 #处理器信息
 echo -e "<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=4,sock_pfx=$T4_sock_pfx,manufacturer=$T4_manufacturer,version=$T4_version,max-speed=$T4_maxspeed,current-speed=$T4_currentspeed,serial=$T4_serial,asset=$T4_asset,part=$T4_part,processor-family=$T4_processorfamily,processor-id=$T4_processorid\"/>"
+echo -e "<qemu:arg value=\"type=4,sock_pfx=$YELLOW$T4_sock_pfx$RES,manufacturer=$YELLOW$T4_manufacturer$RES,version=$YELLOW$T4_version$RES,max-speed=$YELLOW$T4_maxspeed$RES,current-speed=$YELLOW$T4_currentspeed$RES,serial=$YELLOW$T4_serial$RES,asset=$YELLOW$T4_asset$RES,part=$YELLOW$T4_part$RES,processor-family=$YELLOW$T4_processorfamily$RES,processor-id=$YELLOW$T4_processorid$RES\"/>"
 
 #内存设备
 echo -e "<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=17,loc_pfx=$T17_loc_pfx,bank=$T17_bank,manufacturer=$T17_manufacturer,serial=$T17_serial,asset=$T17_asset,part=$T17_part,speed=$T17_speed\"/>"
+echo -e "<qemu:arg value=\"type=17,loc_pfx=$YELLOW$T17_loc_pfx$RES,bank=$YELLOW$T17_bank$RES,manufacturer=$YELLOW$T17_manufacturer$RES,serial=$YELLOW$T17_serial$RES,asset=$YELLOW$T17_asset$RES,part=$YELLOW$T17_part$RES,speed=$YELLOW$T17_speed$RES\"/>"
 
 #CPU
 echo -e "<qemu:arg value=\"-cpu\"/>"
-echo -e "<qemu:arg value=\"host,family=$cpu_family,model=$cpu_model,stepping=$cpu_stepping,model_id=$cpu_model_id,+l3-cache,rdtscp=off,hv_time,kvm=off,hv_vendor_id=null,-hypervisor,+vmx,+invtsc,vmware-cpuid-freq=false,enforce=false,host-phys-bits=true\"/>"
+echo -e "<qemu:arg value=\"host,family=$YELLOW$cpu_family$RES,model=$YELLOW$cpu_model$RES,stepping=$YELLOW$cpu_stepping$RES,model_id=$YELLOW$cpu_model_id$RES,+l3-cache,rdtscp=off,hv_time,kvm=off,hv_vendor_id=null,-hypervisor,+vmx,+invtsc,vmware-cpuid-freq=false,enforce=false,host-phys-bits=true\"/>"
 echo -e "<qemu:arg value=\"-machine\"/>\n\n"
 
 #磁盘
 echo -e "<disk type=\"file\" device=\"disk\">\"/>"
 echo -e "<target dev=\"sdb\" bus=\"sata\"/>"
-echo -e "<serial>$disk_serial</serial>"
-echo -e "<product>$disk_model</product>\n\n"
+echo -e "<serial>$YELLOW$disk_serial$RES</serial>"
+echo -e "<product>$YELLOW$disk_model$RES</product>\n\n"
 
 
 
