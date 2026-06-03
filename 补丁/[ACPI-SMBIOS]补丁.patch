@@ -113,17 +113,17 @@ diff -uprN "a/hw/i386/acpi-build.c" "b/hw/i386/acpi-build.c"
          build_hpet_aml(dsdt);
      }
 diff -uprN "a/hw/i386/fw_cfg.c" "b/hw/i386/fw_cfg.c"
---- "a/hw/i386/fw_cfg.c"	2026-05-23 22:43:51.580503364 +0800
-+++ "b/hw/i386/fw_cfg.c"	2026-05-23 22:43:51.584503364 +0800
-@@ -225,7 +225,7 @@ void fw_cfg_add_acpi_dsdt(Aml *scope, FW
-     uint8_t io_size = object_property_get_bool(obj, "dma_enabled", NULL) ?
-         ROUND_UP(FW_CFG_CTL_SIZE, 4) + sizeof(dma_addr_t) :
-         FW_CFG_CTL_SIZE;
+--- "a/hw/i386/fw_cfg.c"	2026-06-03 21:13:57.920860240 +0800
++++ "b/hw/i386/fw_cfg.c"	2026-06-03 21:13:57.921835303 +0800
+@@ -216,7 +216,7 @@ void fw_cfg_build_feature_control(Machin
+ void fw_cfg_add_acpi_dsdt(Aml *scope, FWCfgState *fw_cfg)
+ {
+     uint8_t io_size;
 -    Aml *dev = aml_device("FWCF");
 +    Aml *dev = aml_device("FWC");
      Aml *crs = aml_resource_template();
  
-     aml_append(dev, aml_name_decl("_HID", aml_string("ASUS0002")));
+     /*
 diff -uprN "a/hw/smbios/smbios.c" "b/hw/smbios/smbios.c"
 --- "a/hw/smbios/smbios.c"	2026-05-23 22:43:51.576503364 +0800
 +++ "b/hw/smbios/smbios.c"	2026-05-23 22:43:51.576503364 +0800
