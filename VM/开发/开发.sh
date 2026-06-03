@@ -32,6 +32,14 @@ my_array=("
 " "
 /hw/i386/fw_cfg.c
 
+
+" "
+/hw/i386/pc.c
+" "
+/hw/pci-host/gpex.c
+" "
+/hw/scsi/scsi-bus.c
+
 ")
  
 
