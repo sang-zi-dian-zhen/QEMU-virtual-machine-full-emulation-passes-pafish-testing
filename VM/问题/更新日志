@@ -8,3 +8,10 @@ ACPI.v0.05.7z		//	2026年 06月 03日
 重写	配置BIOS.sh
 新建目录	VM/问题/
 
+更新到	内核linux-7.0.10
+适配内核linux-7.0.10	kernel-patch-6.8.0-65.patch >> 内核补丁[Intel].patch
+
+适配qemu-11.0.1	[ACPI-SMBIOS]补丁.patch
+适配qemu-11.0.1	qemu-10.2.2.patch >> qemu-11.0.1.patch		删除了修改//diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+
+

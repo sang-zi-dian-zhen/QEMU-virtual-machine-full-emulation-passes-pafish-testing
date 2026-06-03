@@ -1,0 +1,3 @@
+sudo qemu-img resize ??/vol.qcow2 ??G
+更改VM磁盘大小
+
