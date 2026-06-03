@@ -18,7 +18,7 @@ if [[ $EUID -ne 0 ]]; then echo -e "	用户权限不够,root用户执行\n" 1>&2
 sleep 1
 
 
-rm -r /home/$username/linux*		/home/$username/[LOG\]*	/home/$username/内核补丁[amd].patch	/home/$username/kernel-patch-6.8.0-65.patch
+rm -r /home/$username/linux*		/home/$username/[LOG\]*	/home/$username/内核补丁[amd].patch	/home/$username/内核补丁[Intel].patch
 apt remove exfalso atril quodlibet nautilus synaptic xsane xterm libreoffice* system-config-printer
 apt autoremove
 
