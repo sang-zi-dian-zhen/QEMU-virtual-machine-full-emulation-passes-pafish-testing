@@ -12,6 +12,19 @@ ACPI.v0.05.7z		//	2026年 06月 03日
 适配内核linux-7.0.10	kernel-patch-6.8.0-65.patch >> 内核补丁[Intel].patch
 
 适配qemu-11.0.1	[ACPI-SMBIOS]补丁.patch
-适配qemu-11.0.1	qemu-10.2.2.patch >> qemu-11.0.1.patch		删除了修改//diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+适配qemu-11.0.1	qemu-10.2.2.patch >> qemu-11.0.1.patch		删除了修改	//	diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+
+
+
+ACPI.v0.06.7z		//	2026年 06月 05日
+更新	开发.sh
+修复偏移		qemu-11.0.1.patch
+修复偏移	[ACPI-SMBIOS]补丁.patch	//	修改/hw/i386/acpi-build.c		build_waet >> build_wsmt
+
+模板.xml
+//	pc-q35-10.2 >> q35	/* 应该自动最新 */
+//	添加e1000e网络	/* 链接状态不活动*/
+
+评价 ： 小修更多是补全， 对全仿真没什么帮助
 
 
