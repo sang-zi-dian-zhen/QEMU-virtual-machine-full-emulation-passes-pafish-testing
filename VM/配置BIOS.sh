@@ -9,6 +9,7 @@ rand_serial=1
 
 
 # 定义颜色变量
+RED='\e[1;31m' # 红
 GREEN='\e[1;32m' # 绿
 PINK='\e[1;35m' # 粉红
 YELLOW='\e[1;33m' # 黄
@@ -139,7 +140,7 @@ echo -e "<system>"
 echo -e "<entry name=\"manufacturer\">$YELLOW$T1_manufacturer$RES</entry>"
 echo -e "<entry name=\"product\">$YELLOW$T1_product$RES</entry>"
 echo -e "<entry name=\"version\">$YELLOW$T1_version$RES</entry>"
-echo -e "<entry name=\"serial\">$YELLOW$T1_serial$RES</entry>"
+echo -e "<entry name=\"serial\">$RED$T1_serial$RES</entry>"
 echo -e "<entry name=\"sku\">$YELLOW$T1_sku$RES</entry>"
 echo -e "<entry name=\"family\">$YELLOW$T1_family$RES</entry>"
 echo -e "</system>"
@@ -149,7 +150,7 @@ echo -e "<baseBoard>"
 echo -e "<entry name=\"manufacturer\">$YELLOW$T2_manufacturer$RES</entry>"
 echo -e "<entry name=\"product\">$YELLOW$T2_product$RES</entry>"
 echo -e "<entry name=\"version\">$YELLOW$T2_version$RES</entry>"
-echo -e "<entry name=\"serial\">$YELLOW$T2_serial$RES</entry>"
+echo -e "<entry name=\"serial\">$RED$T2_serial$RES</entry>"
 echo -e "<entry name=\"asset\">$YELLOW$T2_asset$RES</entry>"
 echo -e "<entry name=\"location\">$YELLOW$T2_location$RES</entry>"
 echo -e "</baseBoard>"
@@ -158,7 +159,7 @@ echo -e "</baseBoard>"
 echo -e "<chassis>"
 echo -e "<entry name=\"manufacturer\">$YELLOW$T3_manufacturer$RES</entry>"
 echo -e "<entry name=\"version\">$YELLOW$T3_version$RES</entry>"
-echo -e "<entry name=\"serial\">$YELLOW$T3_serial$RES</entry>"
+echo -e "<entry name=\"serial\">$RED$T3_serial$RES</entry>"
 echo -e "<entry name=\"asset\">$YELLOW$T3_asset$RES</entry>"
 echo -e "<entry name=\"sku\">$YELLOW$T3_sku$RES</entry>"
 echo -e "</chassis>"
@@ -167,15 +168,15 @@ echo -e "</chassis>"
 
 #系统信息
 echo -e "\n\n<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=1,uuid=$YELLOW$T1_uuid$RES\"/>"
+echo -e "<qemu:arg value=\"type=1,uuid=$RED$T1_uuid$RES\"/>"
 
 #处理器信息
 echo -e "<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=4,sock_pfx=$YELLOW$T4_sock_pfx$RES,manufacturer=$YELLOW$T4_manufacturer$RES,version=$YELLOW$T4_version$RES,max-speed=$YELLOW$T4_maxspeed$RES,current-speed=$YELLOW$T4_currentspeed$RES,serial=$YELLOW$T4_serial$RES,asset=$YELLOW$T4_asset$RES,part=$YELLOW$T4_part$RES,processor-family=$YELLOW$T4_processorfamily$RES,processor-id=$YELLOW$T4_processorid$RES\"/>"
+echo -e "<qemu:arg value=\"type=4,sock_pfx=$YELLOW$T4_sock_pfx$RES,manufacturer=$YELLOW$T4_manufacturer$RES,version=$YELLOW$T4_version$RES,max-speed=$YELLOW$T4_maxspeed$RES,current-speed=$YELLOW$T4_currentspeed$RES,serial=$RED$T4_serial$RES,asset=$YELLOW$T4_asset$RES,part=$YELLOW$T4_part$RES,processor-family=$YELLOW$T4_processorfamily$RES,processor-id=$RED$T4_processorid$RES\"/>"
 
 #内存设备
 echo -e "<qemu:arg value=\"-smbios\"/>"
-echo -e "<qemu:arg value=\"type=17,loc_pfx=$YELLOW$T17_loc_pfx$RES,bank=$YELLOW$T17_bank$RES,manufacturer=$YELLOW$T17_manufacturer$RES,serial=$YELLOW$T17_serial$RES,asset=$YELLOW$T17_asset$RES,part=$YELLOW$T17_part$RES,speed=$YELLOW$T17_speed$RES\"/>"
+echo -e "<qemu:arg value=\"type=17,loc_pfx=$YELLOW$T17_loc_pfx$RES,bank=$YELLOW$T17_bank$RES,manufacturer=$YELLOW$T17_manufacturer$RES,serial=$RED$T17_serial$RES,asset=$YELLOW$T17_asset$RES,part=$YELLOW$T17_part$RES,speed=$YELLOW$T17_speed$RES\"/>"
 
 #CPU
 echo -e "<qemu:arg value=\"-cpu\"/>"
@@ -183,10 +184,12 @@ echo -e "<qemu:arg value=\"host,family=$YELLOW$cpu_family$RES,model=$YELLOW$cpu_
 echo -e "<qemu:arg value=\"-machine\"/>\n\n"
 
 #磁盘
-echo -e "<disk type=\"file\" device=\"disk\">\"/>"
+echo -e "<disk type=\"file\" device=\"disk\">"
+echo -e "<source file=\"/var/lib/libvirt/images/win10.qcow2\"/>"
 echo -e "<target dev=\"sdb\" bus=\"sata\"/>"
-echo -e "<serial>$YELLOW$disk_serial$RES</serial>"
-echo -e "<product>$YELLOW$disk_model$RES</product>\n\n"
+echo -e "<serial>$RED$disk_serial$RES</serial>"
+echo -e "<product>$YELLOW$disk_model$RES</product>"
+echo -e "</disk>\n\n"
 
 
 
