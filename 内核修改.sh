@@ -84,20 +84,14 @@ cd $version	;fi
 #CPU
 lscpu=$(lscpu)
 cpu_MHz=$(echo $lscpu | sed -e 's/.*CPU max MHz: //g' -e 's/ CPU min MHz:.*//g')
-cpu_MHz=$(echo $cpu_MHz | sed -e 's/\.0.*//g')
+cpu_MHz=$(echo $cpu_MHz | sed -e 's/\.0.*//g' -e 's/00//g')
+TIME=$(echo "$cpu_MHz/2" | bc)
 
-#更换计时器<u64 fake_diff =  diff / 16;		16是时间戳实际差异的分差,你可以增加和减少>
+#更换计时器
 if [ $CPU == 1 ]; then
-if [ $cpu_MHz -ge 4200 ];then 
-sed -i 's/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ 20;/g' /home/$username/内核补丁[Intel].patch
-else	sed -i 's/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ 16;/g' /home/$username/内核补丁[Intel].patch
-fi fi
-
-if [ $CPU == 3 ]; then
-if [ $cpu_MHz -ge 4200 ];then 
-sed -i 's/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ 20;/g' /home/$username/内核补丁[amd].patch
-else	sed -i 's/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ 16;/g' /home/$username/内核补丁[amd].patch
-fi fi
+sed -i "s/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ $TIME;/g" /home/$username/内核补丁[Intel].patch
+else	sed -i "s/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ $TIME;/g" /home/$username/内核补丁[amd].patch
+fi
 
 
 
