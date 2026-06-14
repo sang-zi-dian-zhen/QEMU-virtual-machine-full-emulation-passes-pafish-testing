@@ -87,7 +87,7 @@ cpu_MHz=$(echo $lscpu | sed -e 's/.*CPU max MHz: //g' -e 's/ CPU min MHz:.*//g')
 cpu_MHz=$(echo $cpu_MHz | sed -e 's/\.0.*//g' -e 's/00//g')
 TIME=$(echo "$cpu_MHz/2" | bc)
 
-#更换计时器
+#更换计时器		参考资源	: https://github.com/WCharacter/RDTSC-KVM-Handler/issues/4
 if [ $CPU == 1 ]; then
 sed -i "s/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ $TIME;/g" /home/$username/内核补丁[Intel].patch
 else	sed -i "s/u64 fake_diff =  diff \/.*/u64 fake_diff =  diff \/ $TIME;/g" /home/$username/内核补丁[amd].patch
