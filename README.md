@@ -1,6 +1,6 @@
 # QEMU虚拟机全仿真	 全过[pafish](https://github.com/a0rtega/pafish)测试
 ## 	作者 / 桑梓店镇	UID : 1081527516
-### 灵感启发[JDWA显卡直通指南](https://jdwa.cn/tutorials/KVM/kvm-gpu-passthrough.html)	[JDWA去虚拟化](https://jdwa.cn/tutorials/KVM/kvm-gpu-passthrough.html)
+### 灵感启发[記得晚安JDWA](https://space.bilibili.com/3546570985311169)
  > ##### 目录结构	虚拟机过测试/
  >> ##### 内核修改.sh	通过	//	(rdtsc) forcing VM exit	测试
  >> ##### 准备工作.sh	安装所需虚拟化软件, 显卡直通准备工作
