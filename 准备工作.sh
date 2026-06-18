@@ -99,11 +99,11 @@ fi
 
 #查看显卡ID
 if [ $GPU == 1 ]; then
-  ID0=$(lspci -nn | grep 01:00.0 | sed -e 's/.*\] \[//g' -e 's/].*//g')
-  ID1=$(lspci -nn | grep 01:00.1 | sed -e 's/.*\] \[//g' -e 's/].*//g')
+  ID0=$(lspci -nn | grep 01:00.0 | sed -e 's/.*\[1002:/1002:/g' -e 's/].*//g')
+  ID1=$(lspci -nn | grep 01:00.1 | sed -e 's/.*\[1002:/1002:/g' -e 's/].*//g')
 else
-  ID0=$(lspci -nn | grep 03:00.0 | sed -e 's/.*\] \[//g' -e 's/].*//g')
-  ID1=$(lspci -nn | grep 03:00.1 | sed -e 's/.*\] \[//g' -e 's/].*//g')
+  ID0=$(lspci -nn | grep 03:00.0 | sed -e 's/.*\[1002:/1002:/g' -e 's/].*//g')
+  ID1=$(lspci -nn | grep 03:00.1 | sed -e 's/.*\[1002:/1002:/g' -e 's/].*//g')
 fi
 
 #修改GRUB_CMDLINE_LINUX_DEFAULT行，添加IOMMU及VFIO参数
