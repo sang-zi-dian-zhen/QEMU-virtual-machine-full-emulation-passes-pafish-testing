@@ -56,5 +56,24 @@ ACPI.v0.06.7z		//	2026年 06月 05日
 	+ ID0=$(lspci -nn | grep 01:00.0 | sed -e 's/.*\[1002:/1002:/g' -e 's/].*//g')
 
 
+重大更新--ACPI.v0.07.7z		//	2026年 06月 29日	pafish[全过] // al-khaser[剩余2项] // vmaware[剩余11项]
+	准备工作.sh		添加#当前系统完整SMBIOS表和AppArmor配置文件
 
+	配置BIOS.sh	添加注释说明XML配置SMBIOS暂时无用
+
+模板.xml
+	添加注释XML配置SMBIOS暂时无用
+
+	- edk2-x86_64-secure-code.fd
+	+ OVMF_CODE_4M.ms.fd
+
+	+<qemu:arg value='-smbios'/>
+	+<qemu:arg value='file=/home/user/smbios.bin'/>
+
+	QEMU修改.sh	适配qemu-11.0.2
+
+	开发.sh		+ patch -p1 < ../../../[ACPI-SMBIOS]补丁.patch
+
+评价 ： 其实也只是添加了smbios.bin[二进制SMBIOS表]	但这样XML也不能配置SMBIOS了
+应该是暂时的 我再慢慢改吧 不是很想改源代码.......
 
