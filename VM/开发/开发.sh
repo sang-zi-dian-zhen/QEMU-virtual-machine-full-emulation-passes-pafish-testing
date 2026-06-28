@@ -10,10 +10,13 @@ mkdir -p ~/公共/开发[QEMU]	~/公共/开发[QEMU]/diff	~/公共/开发[QEMU]/
 
 tar -xf qemu-11.0.1.tar.xz -C ~/公共/开发[QEMU]/diff
 cd ~/公共/开发[QEMU]/diff/qemu-11.0.1
-	patch -p1 < ../../../../手动qemu-11.0.1.patch
+	patch -p1 < ../../../../qemu-11.0.1.patch
 
 rm -rf ~/公共/开发[QEMU]/QEMU开发
 cp -r ~/公共/开发[QEMU]/diff/qemu-11.0.1		~/公共/开发[QEMU]/QEMU开发
+
+cd ~/公共/开发[QEMU]/QEMU开发
+	patch -p1 < ../../../[ACPI-SMBIOS]补丁.patch
 fi
 
 ##	##	##	##	##	##	##	##	##	##	##	##	##	##	
