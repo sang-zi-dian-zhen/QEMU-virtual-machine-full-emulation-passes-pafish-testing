@@ -13,6 +13,7 @@
     <locked/>
   </memoryBacking>
   <vcpu placement="static">6</vcpu>
+<!-- XML配置SMBIOS暂时无用 
   <sysinfo type="smbios">
     <bios>
       <entry name="vendor">American Megatrends Inc.</entry>
@@ -44,16 +45,19 @@
       <entry name="sku">Default string</entry>
     </chassis>
   </sysinfo>
+-->
   <os firmware="efi">
     <type arch="x86_64" machine="q35">hvm</type>
     <firmware>
-      <feature enabled="no" name="enrolled-keys"/>
+      <feature enabled="yes" name="enrolled-keys"/>
       <feature enabled="yes" name="secure-boot"/>
     </firmware>
-    <loader readonly="yes" secure="yes" type="pflash" format="raw">/usr/share/qemu/edk2-x86_64-secure-code.fd</loader>
-    <nvram template="/usr/share/qemu/edk2-i386-vars.fd" templateFormat="raw" format="raw">/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
+    <loader readonly="yes" secure="yes" type="pflash" format="raw">/usr/share/OVMF/OVMF_CODE_4M.ms.fd</loader>
+    <nvram template="/usr/share/OVMF/OVMF_VARS_4M.ms.fd" templateFormat="raw" format="raw">/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
     <boot dev="hd"/>
+<!-- XML配置SMBIOS暂时无用 
     <smbios mode="sysinfo"/>
+-->
   </os>
   <features>
     <acpi/>
@@ -142,6 +146,7 @@
     </iommu>
   </devices>
   <qemu:commandline>
+<!-- XML配置SMBIOS暂时无用
     <qemu:arg value="-smbios"/>
     <qemu:arg value="type=0,uefi=on,vm=off"/>
     <qemu:arg value="-smbios"/>
@@ -150,6 +155,9 @@
     <qemu:arg value="type=4,sock_pfx=LGA1151,manufacturer=Intel(R) Corporation,version=Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz,max-speed=8300,current-speed=2800,serial=736295446298,asset=To Be Filled By O.E.M.,part=To Be Filled By O.E.M.,processor-family=6,processor-id=805336969424"/>
     <qemu:arg value="-smbios"/>
     <qemu:arg value="type=17,loc_pfx=ChannelB-DIMM1,bank=BANK 2,manufacturer=8892,serial=753802549650,asset=9876543210,part=,speed=2400"/>
+-->
+    <qemu:arg value='-smbios'/>
+    <qemu:arg value='file=/home/user/smbios.bin'/>
     <qemu:arg value="-cpu"/>
     <qemu:arg value="host,family=6,model=158,stepping=10,model_id=Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz,+l3-cache,rdtscp=off,hv_time,kvm=off,hv_vendor_id=null,-hypervisor,+vmx,+invtsc,vmware-cpuid-freq=false,enforce=false,host-phys-bits=true"/>
     <qemu:arg value="-machine"/>

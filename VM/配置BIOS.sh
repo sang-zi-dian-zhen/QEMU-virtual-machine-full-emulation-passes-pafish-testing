@@ -126,7 +126,7 @@ disk_serial=$(shuf -i 100000000000-999999999999 -n 1)
 fi
 
 
-
+echo -e "$PINK/*	*	*	XML配置SMBIOS暂时无用	*	*/$RES"
 #BIOS信息
 echo -e "<bios>"
 echo -e "<entry name=\"vendor\">$YELLOW$T0_vendor$RES</entry>"
@@ -164,10 +164,11 @@ echo -e "<entry name=\"asset\">$YELLOW$T3_asset$RES</entry>"
 echo -e "<entry name=\"sku\">$YELLOW$T3_sku$RES</entry>"
 echo -e "</chassis>"
 
+echo -e "$PINK/*	*	*	XML配置SMBIOS暂时无用	*	*/$RES\n\n\n\n"
 
-
+echo -e "$PINK/*	*	*	XML配置SMBIOS暂时无用	*	*/$RES"
 #系统信息
-echo -e "\n\n<qemu:arg value=\"-smbios\"/>"
+echo -e "<qemu:arg value=\"-smbios\"/>"
 echo -e "<qemu:arg value=\"type=1,uuid=$RED$T1_uuid$RES\"/>"
 
 #处理器信息
@@ -177,6 +178,7 @@ echo -e "<qemu:arg value=\"type=4,sock_pfx=$YELLOW$T4_sock_pfx$RES,manufacturer=
 #内存设备
 echo -e "<qemu:arg value=\"-smbios\"/>"
 echo -e "<qemu:arg value=\"type=17,loc_pfx=$YELLOW$T17_loc_pfx$RES,bank=$YELLOW$T17_bank$RES,manufacturer=$YELLOW$T17_manufacturer$RES,serial=$RED$T17_serial$RES,asset=$YELLOW$T17_asset$RES,part=$YELLOW$T17_part$RES,speed=$YELLOW$T17_speed$RES\"/>"
+echo -e "$PINK/*	*	*	XML配置SMBIOS暂时无用	*	*/$RES\n\n\n"
 
 #CPU
 echo -e "<qemu:arg value=\"-cpu\"/>"
