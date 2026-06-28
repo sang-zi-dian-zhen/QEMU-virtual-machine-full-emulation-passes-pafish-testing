@@ -41,8 +41,8 @@ else echo -e "补丁文件不存在   复制补丁qemu-11.0.1.patch到 /home/$us
 if test -e /home/$username/[ACPI-SMBIOS]补丁.patch;then echo -e "[ACPI-SMBIOS]补丁.patch[补丁文件存在]"
 else echo -e "补丁文件不存在   复制补丁[ACPI-SMBIOS]补丁.patch到 /home/$username/ \n";exit 1;fi
 
-if test -e /home/$username/qemu-11.0.1.tar.xz;then echo -e "QEMU源码压缩包存在\n"
-else echo -e "QEMU源码压缩包不存在   复制qemu-11.0.1.tar.xz源码压缩包到 /home/$username/ \n";exit 1;fi
+if test -e /home/$username/qemu-11.0.2.tar.xz;then echo -e "QEMU源码压缩包存在\n"
+else echo -e "QEMU源码压缩包不存在   复制qemu-11.0.2.tar.xz源码压缩包到 /home/$username/ \n";exit 1;fi
 
 
 #配置sources
@@ -60,10 +60,10 @@ fi
 
 
 #解压QEMU<原始的未修改>
-tar -xf /home/$username/qemu-11.0.1.tar.xz
+tar -xf /home/$username/qemu-11.0.2.tar.xz
 
 #QEMU修改
-cd /home/$username/qemu-11.0.1/
+cd /home/$username/qemu-11.0.2/
 patch -p1 < ../qemu-11.0.1.patch
 patch -p1 < ../[ACPI-SMBIOS]补丁.patch
 

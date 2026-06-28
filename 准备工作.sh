@@ -116,4 +116,12 @@ sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/$GRUB/g" /etc/default/grub
 update-grub
 
 
+#当前系统完整SMBIOS表
+dmidecode --dump-bin /home/$username/smbios.bin
+
+#AppArmor配置文件
+echo "  /home/$username/smbios.bin r,"  >> /etc/apparmor.d/abstractions/libvirt-qemu
+apparmor_parser -r /etc/apparmor.d/libvirt/TEMPLATE.qemu
+
+
 
