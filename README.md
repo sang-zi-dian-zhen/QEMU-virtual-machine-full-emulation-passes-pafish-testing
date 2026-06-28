@@ -1,4 +1,4 @@
-# QEMU虚拟机全仿真	 全过[pafish](https://github.com/a0rtega/pafish)测试
+# QEMU虚拟机全仿真	 全过[pafish](https://github.com/a0rtega/pafish)测试	[al-khaser](https://github.com/ayoubfaouzi/al-khaser)[剩余2项]
 ## 	作者 / 桑梓店镇	UID : 1081527516
 ### 灵感启发[記得晚安JDWA](https://space.bilibili.com/3546570985311169)
  > ##### 目录结构	虚拟机过测试/
